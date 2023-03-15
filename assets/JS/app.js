@@ -1,7 +1,6 @@
 
 /*get the number of characters*/
 function charLength() {
-
     let charLength = document.getElementById('length').value;
     document.getElementById('result').innerHTML = charLength;
     return charLength;
@@ -10,67 +9,51 @@ function charLength() {
 
 document.getElementById('length').addEventListener('change', charLength)
 
-let result = document.querySelector("#password__result");
-let length = document.getElementById('result').innerHTML;
-let upp = document.querySelector("#uppercase");
-let low = document.querySelector("#lowercase");
-let numbers = document.querySelector("#numbers");
-let symbols = document.querySelector("#symbols");
-let generateButton = document.querySelector("#generate");
-const copyPass = document.querySelector("#copy");
-// To generate uppercase letters //
-const gen_uppercase = document.querySelector("#uppercase:checked") == true;
-// console.log(gen_uppercase);
+function generate() {
+    let length = document.getElementById('result').innerText;
 
-const btn = document.querySelector("#btn");
+    let Include_uppercase = document.getElementById("uppercase").checked;
+    let Include_lowercase = document.getElementById("lowercase").checked;
+    let Include_numbers = document.getElementById("numbers").checked;
+    let Include_symbols = document.getElementById("symbols").checked;
 
 
-// btn.addEventListener("click", low);
+    let up_characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let low_characters = "abcdefghijklmnopqrstuvwxyz";
+    let numbers = "0123456789";
+    let symbols = "!@#$%^&*+";
 
-function upp() {
-    const upper_case = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    
-    let password = "";
-    for (let i = 0; i <= length; i++) {
-        const gen_password = Math.floor(Math.random() * upper_case.length);
-        password += upper_case.substring(gen_password, gen_password + 1)
+    if (Include_uppercase) {
+        let gen = "";
+        for (let i = 0; i < length; i++) {
+            gen += up_characters.charAt(Math.floor(Math.random() * up_characters.length));
+        }
+        document.getElementById("password__result").value = gen
     }
-    document.querySelector("#password__result").value = password
-}
 
-function low() {
-    const lower_case = "abcdefghijklmnopqrstuvwxyz";
-    let length = document.getElementById('result').innerHTML
-    let password = "";
-    for (let i = 0; i <= length; i++) {
-        const gen_password = Math.floor(Math.random() * lower_case.length);
-        password += lower_case.substring(gen_password, gen_password + 1)
+    if (Include_uppercase && Include_lowercase) {
+        let gen = "";
+        for (let i = 0; i < length; i++) {
+            gen += (low_characters+up_characters).charAt(Math.floor(Math.random() * (low_characters+up_characters).length));
+            // console.log(gen)
+        }
+        document.getElementById("password__result").value = gen
     }
-    document.querySelector("#password__result").value = password
-}
-
-function num() {
-    const numbers = "0123456789";
-    let length = document.getElementById('result').innerHTML
-    let password = "";
-    for (let i = 0; i <= length; i++) {
-        const gen_password = Math.floor(Math.random() * numbers.length);
-        password += numbers.substring(gen_password, gen_password + 1)
+    if (Include_uppercase && Include_lowercase && Include_numbers) {
+        let gen = "";
+        for (let i = 0; i < length; i++) {
+            gen += (low_characters+up_characters+numbers).charAt(Math.floor(Math.random() * (low_characters+up_characters+numbers).length));
+            // console.log(gen)
+        }
+        document.getElementById("password__result").value = gen
     }
-    document.querySelector("#password__result").value = password
-}
-
-function char() {
-    const characters = "!@#$%^&*";
-    let length = document.getElementById('result').innerHTML
-    let password = "";
-    for (let i = 0; i <= length; i++) {
-        const gen_password = Math.floor(Math.random() * characters.length);
-        password += characters.substring(gen_password, gen_password + 1)
+    if (Include_uppercase && Include_lowercase && Include_numbers && Include_symbols) {
+        let gen = "";
+        for (let i = 0; i < length; i++) {
+            gen += (symbols+low_characters+up_characters+numbers).charAt(Math.floor(Math.random() * (low_characters+up_characters+numbers+symbols).length));
+            // console.log(gen)
+        }
+        document.getElementById("password__result").value = gen
     }
-    document.querySelector("#password__result").value = password
 }
-
-
-
-
+document.getElementById("btn").addEventListener("click", generate)
